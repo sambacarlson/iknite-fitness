@@ -1,6 +1,8 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {setIsResting} from '../slices/uiControlSlice';
+import {useAppDispatch, useAppSelector} from '../store/hooks';
 import {variables} from '../variables/global';
 
 //variables
@@ -9,9 +11,71 @@ const exerciseImg = {
 };
 const fonts = variables.fonts;
 const customColors = variables.colors;
-const Ready = () => {
+
+const Ready = (props: any) => {
+  // const restState = useAppSelector(state => state.uiControls);
   const [pauseMusic, setPauseMusic] = React.useState<boolean>(true);
-  const [go, setGo] = React.useState<boolean>(false);
+  const [going, setGoing] = React.useState<boolean>(false); //determines whether exercising or resting
+  const [readyCountDown, setReadyCountDown] = React.useState<number>(10); //countDown before exercise begins
+  const [goingCountdown, setGoingCountDown] = React.useState<number>(15); //counddown while exercising
+  const [exercising, setExercising] = React.useState<boolean>(true); ///stops exercution if false
+
+  const dispatch = useAppDispatch();
+
+  React.useState(() => {
+    setExercising(false);
+  }, []);
+  // ============
+  //controls switcher from 'ready' to 'go'
+  const isGoingFxn = async () => {
+    await setTimeout(() => {
+      setGoing(true);
+    }, 11500);
+  };
+
+  //reders countdown to begin exercise 1
+  React.useEffect(() => {
+    if (props.skipReady) {
+      setGoing(true);
+    }
+    if (!exercising) {
+      return;
+    }
+    setTimeout(() => {
+      if (readyCountDown >= 0) {
+        // console.log(readyCountDown);
+        setReadyCountDown(prevState => prevState - 1);
+      }
+    }, 1000);
+    isGoingFxn();
+  }, [readyCountDown]);
+
+  // ============
+  // countdown on current exercising task
+  const exercisingFxn = async () => {
+    await setTimeout(() => {
+      if (goingCountdown >= 0) {
+        // setGoingCountDown(prevState => prevState - 1);
+        props.ret();
+      }
+    }, goingCountdown * 1000);
+  };
+
+  //rendering current exercising countdown
+  React.useEffect(() => {
+    if (going && exercising) {
+      setTimeout(() => {
+        if (goingCountdown > 0) {
+          setGoingCountDown(prevState => prevState - 1);
+        }
+      }, 1000);
+      exercisingFxn();
+      // dispatch(setIsResting(true));
+      // props.ret();
+    }
+  }, [goingCountdown, going]);
+
+  // ==============
   return (
     <View style={styles.Container}>
       <View style={styles.TopRow}>
@@ -49,7 +113,7 @@ const Ready = () => {
           /* ================
           READY TO GO. will be rendered when about to start exercise
       */
-          go && (
+          !going && (
             <View style={{alignItems: 'center'}}>
               <Text
                 style={[fonts.bigTitles, {color: customColors.primaryLight}]}>
@@ -66,7 +130,7 @@ const Ready = () => {
                       fonts.bigTitles,
                       {color: customColors.primaryLight, fontSize: 72},
                     ]}>
-                    10
+                    {readyCountDown}
                   </Text>
                   <Text style={{fontSize: 24, fontWeight: 'bold'}}>s</Text>
                 </View>
@@ -74,7 +138,7 @@ const Ready = () => {
             </View>
           )
         }
-        {!go && (
+        {going && (
           <View
             style={{
               alignItems: 'center',
@@ -88,7 +152,7 @@ const Ready = () => {
                 fonts.bigTitles,
                 {color: customColors.primaryLight, fontSize: 72},
               ]}>
-              10
+              {goingCountdown}
             </Text>
             <Text style={[fonts.mediumTitles]}>Jumping Jacks</Text>
             <View

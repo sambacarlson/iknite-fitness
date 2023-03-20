@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {exercises} from '../exercise';
+import {useAppSelector} from '../store/hooks';
 import {variables} from '../variables/global';
 
 //variabales
@@ -20,6 +22,16 @@ const fonts = variables.fonts;
 const customColors = variables.colors;
 
 const DescriptionCard = (props: any) => {
+  const currentID = useAppSelector((state: any) => state.uiControls);
+  const descObj = {exTitle: '', exSteps: '', exDuration: 0};
+  exercises.map(item => {
+    if (item.exID === currentID.currentExID) {
+      descObj.exTitle = item.exTitle;
+      descObj.exDuration = item.exDuration;
+      descObj.exSteps = item.exSteps[0];
+    }
+  });
+
   const darkMode = useColorScheme() === 'dark';
   return (
     <View style={[styles.OuterView]}>
@@ -83,7 +95,7 @@ const DescriptionCard = (props: any) => {
                 }}>
                 <Text
                   style={[fonts.bigTitles, {color: customColors.primaryLight}]}>
-                  Tricepts stretch left
+                  {descObj.exTitle}
                 </Text>
               </View>
               <View
@@ -102,10 +114,7 @@ const DescriptionCard = (props: any) => {
             </View>
             {/* Description text */}
             <View style={{flex: 4}}>
-              <Text style={{}}>
-                Put your left hand on your back and grab your elbow with your
-                rigt hand
-              </Text>
+              <Text style={{}}>{descObj.exSteps}</Text>
             </View>
             {/* time */}
             <View
@@ -121,7 +130,7 @@ const DescriptionCard = (props: any) => {
                 color={customColors.primaryLight}
               />
               <Text style={(customColors.primaryDark, fonts.mediumTitles)}>
-                00:20
+                00:{descObj.exDuration / 1000}
               </Text>
               <Icon
                 name="plus-square-o"

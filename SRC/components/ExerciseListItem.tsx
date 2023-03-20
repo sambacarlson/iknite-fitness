@@ -7,6 +7,9 @@ import React from 'react';
 import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
 import {RootStackParams} from '../App';
 import {overviewProp} from '../screens/Overview';
+import {setCurrentExID} from '../slices/uiControlSlice';
+import {useAppDispatch} from '../store/hooks';
+import {useAppSelector} from '../store/store';
 import {variables} from '../variables/global';
 
 //variables
@@ -18,10 +21,12 @@ const exImage = {
 const ExerciseListItem = (props: overviewProp): JSX.Element => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
-  const [currentID, setCurrentID] = React.useState<number | string>();
+  const dispatch = useAppDispatch();
+
   return (
     <Pressable
       onPress={() => {
+        dispatch(setCurrentExID(props.exID));
         props.visibleDesc();
       }}
       style={[styles.Container]}>

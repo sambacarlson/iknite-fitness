@@ -45,8 +45,9 @@ const Overview = (): JSX.Element => {
       <ScrollView
         style={[styles.Container, {backgroundColor: backgroundColor}]}>
         {exercises.map(exercise => (
-          <View style={styles.ItemContainer}>
+          <View style={styles.ItemContainer} key={exercise.exID}>
             <ExerciseListItem
+              exID={exercise.exID}
               visibleDesc={visibleDescription}
               exTitle={exercise.exTitle}
               exDuraction={exercise.exDuration / 1000}
@@ -57,6 +58,7 @@ const Overview = (): JSX.Element => {
       {/* START Button */}
       <Pressable
         onPress={() => navigation.navigate('Exercise')}
+        //TODO: send categoryID as param to Exercise Screen
         style={{
           position: 'absolute',
           bottom: '5%',

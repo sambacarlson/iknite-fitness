@@ -14,7 +14,7 @@ export const exercises: exerciseType[] = [
     exID: 1,
     exTitle: 'shoulder stretch',
     exCategory: ['fullBodyStretch', 'upperbody'],
-    exDuration: 20000,
+    exDuration: 30000,
     exRest: 10000,
     exMotive: 'gentle stress relieveing shoulder stretch',
     exSteps: [
@@ -81,7 +81,7 @@ export const exercises: exerciseType[] = [
     exID: 6,
     exTitle: 'spine lumbar twist stretch left',
     exCategory: ['fullBodyStretch'],
-    exDuration: 20000,
+    exDuration: 15000,
     exRest: 10000,
     exMotive: 'relieves stress on your spine',
     exSteps: [
@@ -95,7 +95,7 @@ export const exercises: exerciseType[] = [
     exID: 7,
     exTitle: 'spine lumbar twist stretch right',
     exCategory: ['fullBodyStretch'],
-    exDuration: 20000,
+    exDuration: 15000,
     exRest: 10000,
     exMotive: 'relieves stress on your spine',
     exSteps: [

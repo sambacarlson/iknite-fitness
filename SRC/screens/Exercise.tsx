@@ -1,13 +1,29 @@
 import React from 'react';
-import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import {Button, StyleSheet, useColorScheme, View} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Ready from '../components/Ready';
 import Rest from '../components/Rest';
+import {useAppSelector} from '../store/hooks';
 
 const Exercise = (): JSX.Element => {
+  //TODO: Accept category params from overview screen to know which set of exercises to perform here.
   const darkMode = useColorScheme() === 'dark';
-  const [resting, setResting] = React.useState<boolean>(false);
-  const [ready, setReady] = React.useState<boolean>(true);
+  const restState = useAppSelector((state: any) => state.uiControls);
+  const [isResting, setIsResting] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    setIsResting(restState.isResting);
+  }, [restState]);
+
+  const [skipReady, setSKipReady] = React.useState(false);
+  const retRest = () => {
+    setIsResting(true);
+  };
+  const unsubRest = () => {
+    setIsResting(false);
+    setSKipReady(true);
+  };
+
   return (
     <View
       style={[
@@ -21,9 +37,9 @@ const Exercise = (): JSX.Element => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        {resting && <Rest />}
-        {ready && <Ready />}
+        {isResting ? <Rest unsubRest={unsubRest} /> : <Ready ret={retRest} skipReady={skipReady} />}
       </View>
+      {/* <Button title="setGoing" onPress={() => setIsResting(true)} /> */}
     </View>
   );
 };

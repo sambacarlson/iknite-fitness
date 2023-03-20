@@ -7,12 +7,29 @@ import {variables} from '../variables/global';
 const customColors = variables.colors;
 
 const fonts = variables.fonts;
-const Rest = () => {
+const Rest = (props: any) => {
   const darkMode = useColorScheme() === 'dark';
   // const nextImg = require('../assets/arm_stretch.jpg');
   const nextImg = {
     uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTluoy4oMHk1FsaKTbF3SxjppFOxJUH_EY5cQ&usqp=CAU',
   };
+  const [restTime, setRestTime] = React.useState(10);
+
+  //Rest countDown settings,
+  const countDown = async () => {
+    await setTimeout(() => {
+      if (restTime > 0) {
+        setRestTime(prevState => prevState - 1);
+      }
+    }, 1000);
+  };
+  React.useEffect(() => {
+    countDown();
+    if(restTime==0) {
+      props.unsubRest();
+    }
+  }, [restTime]);
+
   return (
     <View
       style={{
@@ -29,7 +46,7 @@ const Rest = () => {
         REST
       </Text>
       <Text style={{color: customColors.primaryLight, fontSize: 30}}>
-        00:10
+        00:{restTime}
       </Text>
       <View
         style={{
