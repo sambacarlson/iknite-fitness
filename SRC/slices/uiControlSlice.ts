@@ -1,7 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
+interface uiControlStateProp {
+  currentExID: string;
+  isResting: boolean;
+}
+
 const initialState = {
-  currentExID: 1,
+  currentExID: '1',
   isResting: false,
 };
 

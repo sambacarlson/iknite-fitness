@@ -23,7 +23,7 @@ const fonts = variables.fonts;
 //data and props
 // const exers = {...exercises};
 export interface overviewProp {
-  exID: number;
+  exID: string;
   exTitle: string;
   exDuraction: number;
   visibleDesc: any; /// function visibleDescription

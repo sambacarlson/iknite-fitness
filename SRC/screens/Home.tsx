@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Pressable, ScrollView, StyleSheet, useColorScheme} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import CategoryCard from '../components/CategoryCard';
+import { useAppDispatch } from '../store/hooks';
 
 // import {exercises} from '../exercise';
 
@@ -13,10 +14,12 @@ import CategoryCard from '../components/CategoryCard';
 // const categorySet = new Set<categorySetProp>([]);
 
 const Home = (): JSX.Element => {
+  const dispatch = useAppDispatch();
   const isDarkMode = useColorScheme() === 'dark';
   const colorTheme = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  useEffect(() => {}, []);
   return (
     <ScrollView
       style={[{backgroundColor: colorTheme.backgroundColor}, styles.Container]}>

@@ -1,11 +1,14 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {exercises} from '../exercise';
 import {setIsResting} from '../slices/uiControlSlice';
 import {useAppDispatch, useAppSelector} from '../store/hooks';
 import {variables} from '../variables/global';
 
 //variables
+// const selectedExercises = exercises.map(exercise => {});
+
 const exerciseImg = {
   uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkff67hRNN4RFZrlWEeRTK_tinV_69uL0sNA&usqp=CAU',
 };
@@ -19,19 +22,35 @@ const Ready = (props: any) => {
   const [readyCountDown, setReadyCountDown] = React.useState<number>(10); //countDown before exercise begins
   const [goingCountdown, setGoingCountDown] = React.useState<number>(15); //counddown while exercising
   const [exercising, setExercising] = React.useState<boolean>(true); ///stops exercution if false
+  // const [currentExID, setCurrentExID] = React.useState<string>(exArray[0]); /// indicates the id of the current running exercise.
 
   const dispatch = useAppDispatch();
+  const currentEX = useAppSelector(state => state.uiControls);
+  const currentExID = currentEX.currentExID;
 
+  // exArray collect the IDs of current working-on exercises, to be used to swap between exercises.
+  const exArray: string[] = [];
+  exercises.map(exercise => {
+    exArray.push(exercise.exID);
+  });
+
+  ///TODO: Revmove useState. used for testing, to terminate infinite loop.
   React.useState(() => {
-    setExercising(false);
+    // setExercising(false);
   }, []);
   // ============
   //controls switcher from 'ready' to 'go'
   const isGoingFxn = async () => {
     await setTimeout(() => {
       setGoing(true);
-    }, 11500);
+    }, 11400);
   };
+
+  //current exerciseObj returns a single object of exercise for current exericise ID
+  const exerciseObj = exercises.filter(item => {
+    return item.exID === currentExID;
+  })[0];
+  console.warn(exerciseObj.exDuration);
 
   //reders countdown to begin exercise 1
   React.useEffect(() => {
@@ -119,7 +138,7 @@ const Ready = (props: any) => {
                 style={[fonts.bigTitles, {color: customColors.primaryLight}]}>
                 Ready to go!
               </Text>
-              <Text style={[fonts.mediumTitles]}>Jumping Jacks</Text>
+              <Text style={[fonts.mediumTitles]}>{exerciseObj.exTitle}</Text>
               <View
                 style={{
                   marginTop: 10,
@@ -154,7 +173,7 @@ const Ready = (props: any) => {
               ]}>
               {goingCountdown}
             </Text>
-            <Text style={[fonts.mediumTitles]}>Jumping Jacks</Text>
+            <Text style={[fonts.mediumTitles]}>{exerciseObj.exTitle}</Text>
             <View
               style={{
                 position: 'absolute',

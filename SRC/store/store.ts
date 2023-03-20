@@ -1,10 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import uiControlReducer from '../slices/uiControlSlice';
+import exerciseReducer from '../slices/exerciseSlice';
 
 const store = configureStore({
   reducer: {
     uiControls: uiControlReducer,
+    exercises: exerciseReducer,
   },
 });
 

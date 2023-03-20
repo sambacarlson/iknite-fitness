@@ -25,7 +25,7 @@ const Rest = (props: any) => {
   };
   React.useEffect(() => {
     countDown();
-    if(restTime==0) {
+    if (restTime === 0) {
       props.unsubRest();
     }
   }, [restTime]);

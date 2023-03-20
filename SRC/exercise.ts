@@ -1,5 +1,5 @@
 type exerciseType = {
-  exID: number;
+  exID: string;
   exTitle: string;
   exCategory: string[];
   exDuration: number;
@@ -11,7 +11,7 @@ type exerciseType = {
 
 export const exercises: exerciseType[] = [
   {
-    exID: 1,
+    exID: '1',
     exTitle: 'shoulder stretch',
     exCategory: ['fullBodyStretch', 'upperbody'],
     exDuration: 30000,
@@ -25,7 +25,7 @@ export const exercises: exerciseType[] = [
     exImages: [],
   },
   {
-    exID: 2,
+    exID: '2',
     exTitle: 'Standing side bend',
     exCategory: ['fullBodyStretch'],
     exDuration: 20000,
@@ -40,7 +40,7 @@ export const exercises: exerciseType[] = [
     exImages: [],
   },
   {
-    exID: 3,
+    exID: '3',
     exTitle: 'chest stretch',
     exCategory: ['fullBodyStretch'],
     exDuration: 20000,
@@ -54,7 +54,7 @@ export const exercises: exerciseType[] = [
     exImages: [],
   },
   {
-    exID: 4,
+    exID: '4',
     exTitle: 'triceps stretch left',
     exCategory: ['fullBodyStretch'],
     exDuration: 20000,
@@ -66,7 +66,7 @@ export const exercises: exerciseType[] = [
     exImages: [],
   },
   {
-    exID: 5,
+    exID: '5',
     exTitle: 'triceps stretch right',
     exCategory: ['fullBodyStretch'],
     exDuration: 20000,
@@ -78,7 +78,7 @@ export const exercises: exerciseType[] = [
     exImages: [],
   },
   {
-    exID: 6,
+    exID: '6',
     exTitle: 'spine lumbar twist stretch left',
     exCategory: ['fullBodyStretch'],
     exDuration: 15000,
@@ -92,7 +92,7 @@ export const exercises: exerciseType[] = [
     exImages: [],
   },
   {
-    exID: 7,
+    exID: '7',
     exTitle: 'spine lumbar twist stretch right',
     exCategory: ['fullBodyStretch'],
     exDuration: 15000,
@@ -106,7 +106,7 @@ export const exercises: exerciseType[] = [
     exImages: [],
   },
   {
-    exID: 8,
+    exID: '8',
     exTitle: 'kneeling lunge stretch left',
     exCategory: ['fullBodyStretch'],
     exDuration: 20000,
@@ -120,7 +120,7 @@ export const exercises: exerciseType[] = [
     exImages: [],
   },
   {
-    exID: 9,
+    exID: '9',
     exTitle: 'kneeling lunge stretch right',
     exCategory: ['fullBodyStretch'],
     exDuration: 20000,
@@ -134,7 +134,7 @@ export const exercises: exerciseType[] = [
     exImages: [],
   },
   {
-    exID: 10,
+    exID: '10',
     exTitle: 'calf stretch left',
     exCategory: ['fullBodyStretch'],
     exDuration: 20000,
@@ -147,7 +147,7 @@ export const exercises: exerciseType[] = [
     exImages: [],
   },
   {
-    exID: 11,
+    exID: '11',
     exTitle: 'calf stretch right',
     exCategory: ['fullBodyStretch'],
     exDuration: 20000,
@@ -160,7 +160,7 @@ export const exercises: exerciseType[] = [
     exImages: [],
   },
   {
-    exID: 12,
+    exID: '12',
     exTitle: 'cobra stretch',
     exCategory: ['fullBodyStretch'],
     exDuration: 20000,
@@ -173,7 +173,7 @@ export const exercises: exerciseType[] = [
     exImages: [],
   },
   {
-    exID: 13,
+    exID: '13',
     exTitle: "child's pose",
     exCategory: ['fullBodyStretch'],
     exDuration: 20000,
