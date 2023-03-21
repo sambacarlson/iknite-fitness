@@ -50,7 +50,7 @@ const Overview = (): JSX.Element => {
               exID={exercise.exID}
               visibleDesc={visibleDescription}
               exTitle={exercise.exTitle}
-              exDuraction={exercise.exDuration / 1000}
+              exDuraction={exercise.exDuration}
             />
           </View>
         ))}
@@ -59,23 +59,8 @@ const Overview = (): JSX.Element => {
       <Pressable
         onPress={() => navigation.navigate('Exercise')}
         //TODO: send categoryID as param to Exercise Screen
-        style={{
-          position: 'absolute',
-          bottom: '5%',
-          width: '100%',
-          height: '10%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <View
-          style={{
-            backgroundColor: customColors.primaryLight,
-            width: '60%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 14,
-            borderRadius: 100,
-          }}>
+        style={styles.StartButtonContainer}>
+        <View style={styles.StartButton}>
           <Text style={fonts.bigTitles}>START</Text>
         </View>
       </Pressable>
@@ -96,5 +81,21 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: customColors.primaryLight,
+  },
+  StartButtonContainer: {
+    position: 'absolute',
+    bottom: '5%',
+    width: '100%',
+    height: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  StartButton: {
+    backgroundColor: customColors.primaryLight,
+    width: '80%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 14,
+    borderRadius: 100,
   },
 });

@@ -1,0 +1,1 @@
+// variables from external links

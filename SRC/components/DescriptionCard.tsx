@@ -130,7 +130,7 @@ const DescriptionCard = (props: any) => {
                 color={customColors.primaryLight}
               />
               <Text style={(customColors.primaryDark, fonts.mediumTitles)}>
-                00:{descObj.exDuration / 1000}
+                00:{descObj.exDuration}
               </Text>
               <Icon
                 name="plus-square-o"

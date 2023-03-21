@@ -2,26 +2,21 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 interface uiControlStateProp {
   currentExID: string;
-  isResting: boolean;
 }
 
 const initialState = {
   currentExID: '1',
-  isResting: false,
-};
+} as uiControlStateProp;
 
 const uiControlSlice = createSlice({
   name: 'uiControls',
   initialState,
   reducers: {
-    setCurrentExID: (state, action: PayloadAction<number>) => {
+    setCurrentExID: (state, action: PayloadAction<string>) => {
       state.currentExID = action.payload;
-    },
-    setIsResting: (state, action: PayloadAction<boolean>) => {
-      state.isResting = action.payload;
     },
   },
 });
 
 export default uiControlSlice.reducer;
-export const {setCurrentExID, setIsResting} = uiControlSlice.actions;
+export const {setCurrentExID} = uiControlSlice.actions;

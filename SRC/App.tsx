@@ -11,9 +11,9 @@ import Exercise from './screens/Exercise';
 import {variables} from './variables/global';
 
 export type RootStackParams = {
-  Home: JSX.Element;
-  Overview: JSX.Element;
-  Exercise: JSX.Element;
+  Home: undefined;
+  Overview: undefined;
+  Exercise: undefined;
 };
 const Stack = createNativeStackNavigator<RootStackParams>();
 
