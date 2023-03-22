@@ -8,6 +8,7 @@ import Ready from '../components/Ready';
 import Rest from '../components/Rest';
 import {GoingProp, ReadyProp, RestProp} from '../props';
 import {useAppSelector} from '../store/hooks';
+import {exercises} from '../exercise';
 
 //============INITIAL_VARIABLES==============
 const restData: RestProp = {
@@ -26,7 +27,7 @@ const goingData: GoingProp = {
 };
 
 const readyData: ReadyProp = {
-  readyDuration: 9,
+  readyDuration: 11,
   exTitle: 'Next on line',
 };
 //========================================
@@ -38,13 +39,39 @@ const Exercise = (): JSX.Element => {
 
   // ---------UI control useState hooks------------
   const [pauseMusic, setPauseMusic] = React.useState<boolean>(false);
+  //--------------------------------------------------------
+  const [showReady, setShowReady] = React.useState<boolean>(false);
+  const [showGoing, setShowGoing] = React.useState<boolean>(false);
+  const [showRest, setShowRest] = React.useState<boolean>(false);
 
   //----------Logic control useState hooks----------
-  const [showReady, setShowReady] = React.useState<boolean>(true);
-  const [readyState, setReadyState] = React.useState<ReadyProp>(readyData);
+  const [readyState, setReadyState] = React.useState<ReadyProp>(readyData); //sends data to ready state
   const [restState, setRestState] = React.useState<RestProp>(restData); //sends data to Rest
   const [goingState, setUsingState] = React.useState<GoingProp>(goingData); //sends data to doing
 
+  ////===============LOGIC=================
+
+  //----------------------------------------
+  const hide_ready = () => {
+    setShowReady(false); ///disables ready state
+    setShowGoing(true); /// start the exercise
+  };
+  const hide_going = () => {
+    setShowGoing(false); /// calls rest when done
+    setShowRest(true);
+  };
+  const hide_rest = () => {
+    setShowRest(false);
+    //TODO: 1. set a state to determine the next exercise.
+    //TODO: 2. set 'showGoing' to true.
+  };
+
+  // runs once to set ready state
+  React.useEffect(() => {
+    setShowReady(true);
+  }, []);
+
+  ////=====================================
 
   /* =============RETURN================ */
   return (
@@ -76,12 +103,9 @@ const Exercise = (): JSX.Element => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        {uiControls.isResting ? (
-          <Rest {...restState} />
-        ) : (
-          <Ready {...readyState} />
-          // <Going {...goingState} />
-        )}
+        {showReady && <Ready {...readyState} unsub={hide_ready} />}
+        {showGoing && <Going {...goingState} unsub={hide_going} />}
+        {showRest && <Rest {...restState} unsub={hide_rest} />}
       </View>
     </View>
   );
