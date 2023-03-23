@@ -2,10 +2,12 @@
  * GLOBAL VARIABLES
  */
 
-// const primaryLight = '#df4994';
-const primaryLight = '#938e07';
-const primaryLighter = '#d9d10a';
-// const primaryLighter = '#ffa9e4';
+import RNSystemSounds from '@dashdoc/react-native-system-sounds';
+
+const primaryLight = '#df4994';
+// const primaryLight = '#938e07';
+// const primaryLighter = '#d9d10a';
+const primaryLighter = '#ffa9e4';
 const primaryDark = '#333';
 
 export const variables = {
@@ -26,4 +28,15 @@ export const variables = {
       color: 'white',
     },
   },
+};
+
+//// Beeps
+export const rn_beeps = (counter: number) => {
+  // play sounds
+  if (counter < 4) {
+    RNSystemSounds.beep();
+  }
+  if (counter === 0) {
+    RNSystemSounds.beep(RNSystemSounds.Beeps.Negative);
+  }
 };
