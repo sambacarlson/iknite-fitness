@@ -1,9 +1,10 @@
 import React from 'react';
+import RNSystemSounds from '@dashdoc/react-native-system-sounds';
 import {Image, StyleSheet} from 'react-native';
 import {View, Text, Pressable, useColorScheme} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {RestProp} from '../props';
-import {variables} from '../variables/global';
+import {rn_beeps, variables} from '../variables/global';
 
 //variables
 const customColors = variables.colors;
@@ -29,6 +30,10 @@ const Rest = (props: RestProp) => {
       }, 1000);
     }
   }, [restCount]);
+
+  // play sounds
+  rn_beeps(restCount);
+
   // -----------------------------------------------------------------------
 
   /* =========RETURN========= */

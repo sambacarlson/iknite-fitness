@@ -1,9 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import RNSystemSounds from '@dashdoc/react-native-system-sounds';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {GoingProp} from '../props';
-import {variables} from '../variables/global';
+import {rn_beeps, variables} from '../variables/global';
 
 //variables
 const fonts = variables.fonts;
@@ -26,6 +27,9 @@ const Going = (props: GoingProp) => {
       }, 1000);
     }
   }, [goingCount]);
+
+  // play sounds
+  rn_beeps(goingCount);
   // -----------------------------------------------------------------------
 
   return (

@@ -1,12 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import RNSystemSounds from '@dashdoc/react-native-system-sounds';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {exercises} from '../exercise';
 import {ReadyProp} from '../props';
 import {setHideReady} from '../slices/uiControlSlice';
 import {useAppDispatch, useAppSelector} from '../store/hooks';
-import {variables} from '../variables/global';
+import {rn_beeps, variables} from '../variables/global';
 
 //variables
 // const selectedExercises = exercises.map(exercise => {});
@@ -42,6 +43,10 @@ const Ready = (props: ReadyProp) => {
       }, 1000);
     }
   }, [readyCount]);
+
+  // play sounds
+  rn_beeps(readyCount);
+
   // -----------------------------------------------------------------------
 
   /* ==========RETURN============ */
