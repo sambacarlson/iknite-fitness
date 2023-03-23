@@ -12,12 +12,26 @@ const fonts = variables.fonts;
 //-------------------------------------
 const Rest = (props: RestProp) => {
   const darkMode = useColorScheme() === 'dark';
-
-  ///==================VARIABLES==================
   const nextImg = {
     uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTluoy4oMHk1FsaKTbF3SxjppFOxJUH_EY5cQ&usqp=CAU',
   };
+  //---------------------------------------------
+  const [restCount, setRestCount] = React.useState(props.restTimeOut);
+  // -----------------------------------------------------------------------
+  React.useEffect(() => {
+    if (restCount > 0) {
+      setTimeout(() => {
+        setRestCount(prevCount => prevCount - 1);
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        props.unsub();
+      }, 1000);
+    }
+  }, [restCount]);
+  // -----------------------------------------------------------------------
 
+  /* =========RETURN========= */
   return (
     <View style={styles.RestContainer}>
       <View style={styles.RestBody}>
@@ -28,7 +42,7 @@ const Rest = (props: RestProp) => {
           ]}>
           REST
         </Text>
-        <Text style={styles.CountDownTime}>{props.restTimeOut}</Text>
+        <Text style={styles.CountDownTime}>0:{restCount}</Text>
         <View style={styles.ModifyRestButtons}>
           <Pressable style={styles.Btn}>
             <Text>+20s</Text>

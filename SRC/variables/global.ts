@@ -2,8 +2,10 @@
  * GLOBAL VARIABLES
  */
 
-const primaryLight = '#df4994';
-const primaryLighter = '#ffa9e4';
+// const primaryLight = '#df4994';
+const primaryLight = '#938e07';
+const primaryLighter = '#d9d10a';
+// const primaryLighter = '#ffa9e4';
 const primaryDark = '#333';
 
 export const variables = {

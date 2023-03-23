@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     height: '100%',
     flex: 3,
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-end',
     alignItems: 'flex-start',
   },
 });

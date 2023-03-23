@@ -24,11 +24,24 @@ const Ready = (props: ReadyProp) => {
 
   // -----------------------------------------------------------------------
   // -----------------------------------------------------------------------
-  // const [readyToGo, setReadyToGo] = React.useState<number>(10);
+  const [readyCount, setReadyCount] = React.useState<number>(
+    props.readyDuration,
+  );
   // const [onExercise, setOnExercise] = React.useState<number>(
   //   exerciseObj.exDuration,
   // );
   // -----------------------------------------------------------------------
+  React.useEffect(() => {
+    if (readyCount > 0) {
+      setTimeout(() => {
+        setReadyCount(prevCount => prevCount - 1);
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        props.unsub();
+      }, 1000);
+    }
+  }, [readyCount]);
   // -----------------------------------------------------------------------
 
   /* ==========RETURN============ */
@@ -48,7 +61,7 @@ const Ready = (props: ReadyProp) => {
               fonts.bigTitles,
               {color: customColors.primaryLight, fontSize: 72},
             ]}>
-            {props.readyDuration} {/* =========================== */}
+            {readyCount} {/* =========================== */}
           </Text>
           <Text style={{fontSize: 24, fontWeight: 'bold'}}>s</Text>
         </View>

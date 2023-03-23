@@ -13,6 +13,21 @@ const exerciseImg = {
 };
 
 const Going = (props: GoingProp) => {
+  const [goingCount, setGoingCount] = React.useState(props.exDuration);
+  // -----------------------------------------------------------------------
+  React.useEffect(() => {
+    if (goingCount > 0) {
+      setTimeout(() => {
+        setGoingCount(prevCount => prevCount - 1);
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        props.unsub();
+      }, 1000);
+    }
+  }, [goingCount]);
+  // -----------------------------------------------------------------------
+
   return (
     <View style={styles.GoingContainer}>
       <View style={styles.ImgContainer}>
@@ -23,7 +38,7 @@ const Going = (props: GoingProp) => {
           fonts.bigTitles,
           {color: customColors.primaryLight, fontSize: 72},
         ]}>
-        {props.exDuration} {/*==============================*/}
+        {goingCount} {/*==============================*/}
       </Text>
       <Text style={[fonts.mediumTitles]}>{props.exTitle}</Text>
       <View style={styles.BottomProgressBar}>
