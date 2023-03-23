@@ -11,6 +11,16 @@ import {useAppSelector} from '../store/hooks';
 import {exercises} from '../exercise';
 
 //============INITIAL_VARIABLES==============
+const readyData: ReadyProp = {
+  readyDuration: 10,
+  exTitle: 'Next on line',
+  unsub: undefined,
+};
+const goingData: GoingProp = {
+  exDuration: 7,
+  exTitle: 'exerciseTitle',
+  unsub: undefined,
+};
 const restData: RestProp = {
   restTimeOut: 10,
   exCount: 14,
@@ -19,17 +29,10 @@ const restData: RestProp = {
     exTitle: 'exerciseTitle',
     exDuration: 12,
   },
+  unsub: undefined,
 };
 
-const goingData: GoingProp = {
-  exDuration: 7,
-  exTitle: 'exerciseTitle',
-};
-
-const readyData: ReadyProp = {
-  readyDuration: 11,
-  exTitle: 'Next on line',
-};
+const numberOfExercises = exercises.length;
 //========================================
 
 const Exercise = (): JSX.Element => {
@@ -40,17 +43,43 @@ const Exercise = (): JSX.Element => {
   // ---------UI control useState hooks------------
   const [pauseMusic, setPauseMusic] = React.useState<boolean>(false);
   //--------------------------------------------------------
-  const [showReady, setShowReady] = React.useState<boolean>(false);
+  const [showReady, setShowReady] = React.useState<boolean>(true);
   const [showGoing, setShowGoing] = React.useState<boolean>(false);
   const [showRest, setShowRest] = React.useState<boolean>(false);
 
   //----------Logic control useState hooks----------
   const [readyState, setReadyState] = React.useState<ReadyProp>(readyData); //sends data to ready state
   const [restState, setRestState] = React.useState<RestProp>(restData); //sends data to Rest
-  const [goingState, setUsingState] = React.useState<GoingProp>(goingData); //sends data to doing
+  const [goingState, setGoingState] = React.useState<GoingProp>(goingData); //sends data to doing
+
+  const [exIndex, setExIndex] = React.useState<number>(0);
 
   ////===============LOGIC=================
-
+  //The following useEffect dispatches data to the various components (ready, rest, and going) each time we specify a change in exercise Index
+  React.useEffect(() => {
+    if (showReady) {
+      ///We don't want to keep providing data to ready state when we will not be using it.
+      setReadyState(prevState => ({
+        ...prevState,
+        exTitle: exercises[exIndex].exTitle,
+      }));
+    }
+    setGoingState(prevState => ({
+      ...prevState,
+      exDuration: exercises[exIndex].exDuration,
+      exTitle: exercises[exIndex].exTitle,
+    }));
+    setRestState(prevState => ({
+      ...prevState,
+      restTimeOut: exercises[exIndex].exRest,
+      exCount: 1 + numberOfExercises, // 1 plus, since indexing starts at 0
+      nextExercise: {
+        exNumber: 2 + exIndex, /// 2 plus, since indexing starts at 0 and next exercise is plus 1 ahead.
+        exTitle: exercises[1 + exIndex].exTitle,
+        exDuration: exercises[1 + exIndex].exDuration,
+      },
+    }));
+  }, [exIndex]);
   //----------------------------------------
   const hide_ready = () => {
     setShowReady(false); ///disables ready state
@@ -62,16 +91,13 @@ const Exercise = (): JSX.Element => {
   };
   const hide_rest = () => {
     setShowRest(false);
-    //TODO: 1. set a state to determine the next exercise.
-    //TODO: 2. set 'showGoing' to true.
+    if (exIndex < numberOfExercises) {
+      /// We don't want to set next state if no exercises are left
+      setExIndex(prevState => 1 + prevState);
+      setShowGoing(true); //setting true here makes sure app maintains the cycle
+    }
+    // TODO: write else block to display congratulations Screen for having completed the session.
   };
-
-  // runs once to set ready state
-  React.useEffect(() => {
-    setShowReady(true);
-  }, []);
-
-  ////=====================================
 
   /* =============RETURN================ */
   return (
